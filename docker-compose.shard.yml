@@ -1,0 +1,86 @@
+version: "3.8"
+
+services:
+  # Config Server
+  mongo-configsvr-1:
+    image: mongo:7
+    container_name: mongo-configsvr-1
+    hostname: mongo-configsvr-1
+    command: ["--configsvr", "--replSet", "config-replica-set", "--bind_ip_all", "--port", "40001"]
+    ports:
+      - 40001:40001
+
+  mongo-configsvr-2:
+    image: mongo:7
+    container_name: mongo-configsvr-2
+    hostname: mongo-configsvr-2
+    command: ["--configsvr", "--replSet", "config-replica-set", "--bind_ip_all", "--port", "40002"]
+    ports:
+      - 40002:40002
+
+  mongo-configsvr-3:
+    image: mongo:7
+    container_name: mongo-configsvr-3
+    hostname: mongo-configsvr-3
+    command: ["--configsvr", "--replSet", "config-replica-set", "--bind_ip_all", "--port", "40003"]
+    ports:
+      - 40003:40003
+
+  mongo-shard-1-rs-1:
+    image: mongo:7
+    container_name: mongo-shard-1-rs-1
+    hostname: mongo-shard-1-rs-1
+    command: ["--shardsvr", "--replSet", "shard-replica-set-1", "--bind_ip_all", "--port", "40011"]
+    ports:
+      - 40011:40011
+
+  mongo-shard-1-rs-2:
+    image: mongo:7
+    container_name: mongo-shard-1-rs-2
+    hostname: mongo-shard-1-rs-2
+    command: ["--shardsvr", "--replSet", "shard-replica-set-1", "--bind_ip_all", "--port", "40012"]
+    ports:
+      - 40012:40012
+
+  mongo-shard-1-rs-3:
+    image: mongo:7
+    container_name: mongo-shard-1-rs-3
+    hostname: mongo-shard-1-rs-3
+    command: ["--shardsvr", "--replSet", "shard-replica-set-1", "--bind_ip_all", "--port", "40013"]
+    ports:
+      - 40013:40013
+
+  mongo-shard-2-rs-1:
+    image: mongo:7
+    container_name: mongo-shard-2-rs-1
+    hostname: mongo-shard-2-rs-1
+    command: ["--shardsvr", "--replSet", "shard-replica-set-2", "--bind_ip_all", "--port", "40021"]
+    ports:
+      - 40021:40021
+
+  mongo-shard-2-rs-2:
+    image: mongo:7
+    container_name: mongo-shard-2-rs-2
+    hostname: mongo-shard-2-rs-2
+    command: ["--shardsvr", "--replSet", "shard-replica-set-2", "--bind_ip_all", "--port", "40022"]
+    ports:
+      - 40022:40022
+
+  mongo-shard-2-rs-3:
+    image: mongo:7
+    container_name: mongo-shard-2-rs-3
+    hostname: mongo-shard-2-rs-3
+    command: ["--shardsvr", "--replSet", "shard-replica-set-2", "--bind_ip_all", "--port", "40023"]
+    ports:
+      - 40023:40023
+
+  mongos-shard:
+    image: mongo:7
+    container_name: mongos-shard
+    hostname: mongos-shard
+    command: mongos --configdb config-replica-set/mongo-configsvr-1:40001,mongo-configsvr-2:40002,mongo-configsvr-3:40003 --bind_ip_all
+    ports:
+      - "40100:27017"
+
+
+  

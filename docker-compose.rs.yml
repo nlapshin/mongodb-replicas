@@ -1,0 +1,36 @@
+version: "3.8"
+
+# --replSet my-replica-set
+
+services:
+  mongo-rs-1:
+    image: mongo:7
+    container_name: mongo-rs-1
+    hostname: mongo-rs-1
+    command: ["--replSet", "my-replica-set", "--bind_ip_all", "--port", "30001"]
+    ports:
+      - 30001:30001
+
+  mongo-rs-2:
+    image: mongo:7
+    container_name: mongo-rs-2
+    hostname: mongo-rs-2
+    command: ["--replSet", "my-replica-set", "--bind_ip_all", "--port", "30002"]
+    ports:
+      - 30002:30002
+
+  mongo-rs-3:
+    image: mongo:7
+    container_name: mongo-rs-3
+    hostname: mongo-rs-3
+    command: ["--replSet", "my-replica-set", "--bind_ip_all", "--port", "30003"]
+    ports:
+      - 30003:30003
+
+  mongo-rs-4:
+    image: mongo:7
+    container_name: mongo-rs-4
+    hostname: mongo-rs-4
+    command: ["--replSet", "my-replica-set", "--bind_ip_all", "--port", "30004"]
+    ports:
+      - 30004:30004
