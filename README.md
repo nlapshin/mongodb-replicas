@@ -31,7 +31,7 @@ db.adminCommand( {
 rs.initiate({
   "_id" : "my-replica-set", // другое значение ошибка 
   members : [
-    {"_id" : 0, priority : 3, host : "mongo-rs-1:30001"}, // либо IP адрес, domen
+    {"_id" : 0, host : "mongo-rs-1:30001"}, // либо IP адрес, domen
     {"_id" : 1, host : "mongo-rs-2:30002"},
     {"_id" : 2, host : "mongo-rs-3:30003"}
   ]
@@ -109,7 +109,7 @@ db.getCollection("test").find().readPref("secondary", [
 rs.initiate({
   "_id" : "config-replica-set", 
   members : [
-    {"_id" : 0, priority : 3, host : "mongo-configsvr-1:40001"},
+    {"_id" : 0, host : "mongo-configsvr-1:40001"},
     {"_id" : 1, host : "mongo-configsvr-2:40002"},
     {"_id" : 2, host : "mongo-configsvr-3:40003" }
   ]
@@ -120,7 +120,7 @@ rs.initiate({
 rs.initiate({
   "_id" : "shard-replica-set-1", 
   members : [
-    {"_id" : 0, priority : 3, host : "mongo-shard-1-rs-1:40011"},
+    {"_id" : 0, host : "mongo-shard-1-rs-1:40011"},
     {"_id" : 1, host : "mongo-shard-1-rs-2:40012"},
     {"_id" : 2, host : "mongo-shard-1-rs-3:40013" }
   ]
@@ -129,7 +129,7 @@ rs.initiate({
 rs.initiate({
   "_id" : "shard-replica-set-2", 
   members : [
-    {"_id" : 0, priority : 3, host : "mongo-shard-2-rs-1:40021"},
+    {"_id" : 0, host : "mongo-shard-2-rs-1:40021"},
     {"_id" : 1, host : "mongo-shard-2-rs-2:40022"},
     {"_id" : 2, host : "mongo-shard-2-rs-3:40023" }
   ]
@@ -152,7 +152,7 @@ sh.enableSharding("bank")
 use config
  db.settings.updateOne(
    { _id: "chunksize" },
-   { $set: { _id: "chunksize", value: 1 } },
+   { $set: { _id: "chunksize", value: 10 } },
    { upsert: true }
 )
 

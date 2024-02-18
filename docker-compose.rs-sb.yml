@@ -1,0 +1,62 @@
+version: "3.8"
+
+services:
+  mongo-rs-sb-1:
+    image: mongo:7
+    container_name: mongo-rs-sb-1
+    hostname: mongo-rs-sb-1
+    command: ["--replSet", "my-replica-set", "--bind_ip_all", "--port", "30201"]
+    ports:
+      - 30201:30201
+    networks:
+      - mongo-rs-sb-shared
+      - mongo-rs-sb-1
+
+  mongo-rs-sb-2:
+    image: mongo:7
+    container_name: mongo-rs-sb-2
+    hostname: mongo-rs-sb-2
+    command: ["--replSet", "my-replica-set", "--bind_ip_all", "--port", "30202"]
+    ports:
+      - 30202:30202
+    networks:
+      - mongo-rs-sb-shared
+      - mongo-rs-sb-1
+
+  mongo-rs-sb-3:
+    image: mongo:7
+    container_name: mongo-rs-sb-3
+    hostname: mongo-rs-sb-3
+    command: ["--replSet", "my-replica-set", "--bind_ip_all", "--port", "30203"]
+    ports:
+      - 30203:30203
+    networks:
+      - mongo-rs-sb-shared
+      - mongo-rs-sb-2
+
+  mongo-rs-sb-4:
+    image: mongo:7
+    container_name: mongo-rs-sb-4
+    hostname: mongo-rs-sb-4
+    command: ["--replSet", "my-replica-set", "--bind_ip_all", "--port", "30204"]
+    ports:
+      - 30204:30204
+    networks:
+      - mongo-rs-sb-shared
+      - mongo-rs-sb-2
+  mongo-rs-sb-5:
+    image: mongo:7
+    container_name: mongo-rs-sb-5
+    hostname: mongo-rs-sb-5
+    command: ["--replSet", "my-replica-set", "--bind_ip_all", "--port", "30205"]
+    ports:
+      - 30205:30205
+    networks:
+      - mongo-rs-sb-shared
+      - mongo-rs-sb-2
+    
+
+networks:
+  mongo-rs-sb-shared:
+  mongo-rs-sb-1:
+  mongo-rs-sb-2:
